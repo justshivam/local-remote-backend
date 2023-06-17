@@ -1,5 +1,4 @@
 from flask import Flask, request
-from flask_cors import CORS, cross_origin
 from constants import (
     PLAY_PAUSE_MUSIC,
     VOLUME_UP,
@@ -20,12 +19,9 @@ from details_api import (
 )
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route("/api/v1/")
-@cross_origin()
 def test_route():
     return {"message": "test"}
 

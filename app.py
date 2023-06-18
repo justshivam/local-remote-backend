@@ -17,6 +17,10 @@ from details_api import (
     previous_track,
     sleep_windows,
 )
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -60,4 +64,4 @@ def action_route():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=os.environ["DEBUG"].lower() == "true", port=os.environ["PORT"])

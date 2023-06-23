@@ -16,6 +16,7 @@ from details_api import (
     play_pause_music,
     previous_track,
     sleep_windows,
+    mediaIs
 )
 import os
 from dotenv import load_dotenv
@@ -62,6 +63,17 @@ def action_route():
         return {"message": f"Unknown Request: {requested_action}"}, 400
     return {"message": f"Executed Request: {requested_action}"}, 202
 
+@app.route("/api/v1/info")
+def info_route():
+    try:
+        data = mediaIs()
+        return {
+            'isPlaying': data[0],
+            'artist': data[1]['artist'],
+            'title': data[1]['title'],
+            }, 202
+    except:
+        return {"message": f"Failed To Retrive Media Info"}, 404
 
 if __name__ == "__main__":
     app.run(debug=os.environ["DEBUG"].lower() == "true", port=os.environ["PORT"])

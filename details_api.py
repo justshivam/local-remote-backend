@@ -52,11 +52,12 @@ async def getMediaSession():
     session = sessions.get_current_session()
     return session
 
-def mediaIs(state):
+def mediaIs(state="PLAYING"):
     session = asyncio.run(getMediaSession())
+    details = asyncio.run(get_media_info())
     if session == None:
         return False
-    return int(wmc.GlobalSystemMediaTransportControlsSessionPlaybackStatus["PLAYING"]) == session.get_playback_info().playback_status
+    return int(wmc.GlobalSystemMediaTransportControlsSessionPlaybackStatus[state]) == session.get_playback_info().playback_status, details
 
 
 if __name__ == '__main__':
